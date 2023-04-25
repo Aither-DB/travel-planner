@@ -1,0 +1,18 @@
+// all CSS rulesets related to body layout.
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px 0px 0px;
+    min-height: 100vh;
+}
+
+#trip {
+    background-color: lavenderblush;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+}
+
+#form {
+    background-color: lavender;
+}
