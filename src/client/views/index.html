@@ -4,32 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />    
     <title>Travel Planner</title>
 </head>
 <body>
     <div id="header">
-        <h1>Travel Planner</h1>
-    </div>
-    <div id="trip">
-        <div id="trip__image"></div>
-        <div id="trip__header">
-            <h2>My trip to: Paris, France</h2>
-            <h2>Departing: 02/12/2023</h2>
-        </div>
-        <div id="trip__button--save">
-            <button onclick="return Client.handleSubmit(event)">save trip</button>
-        </div>
-        <div id="trip__button--remove">
-            <button onclick="return Client.handleSubmit(event)">remove trip</button>
-        </div>
-        <div id="trip__days">
-            <p>Paris, France is 220 days away.</p>
-        </div>
-        <div id="trip__weather">
-            <p>Typical weather for this is:</p>
-            <p>High - 46, Low - 35</p>
-            <p>Mostly cloudy throughout the day</p>
-        </div>
+        
+        <h1><i class="fas fa-plane"></i> Travel Planner</h1>
     </div>
     <div id="form">
         <div id="form__location">
@@ -39,7 +20,29 @@
             <h2>Departing:</h2><input id="name" type="text" name="input" value="" placeholder="MM/DD/YYYY">
         </div>
         <div id="form__button--submit">
-            <button onclick="return Client.handleSubmit(event)">submit</button>
+            <button class="trip__button" onclick="return Client.handleSubmit(event)">submit</button>
+        </div>
+    </div>
+    <div id="trip">
+        <div id="trip__image"></div>
+        <div id="trip__header">
+            <h2>My trip to: Paris, France </br> Departing: 02/12/2023</h2>
+        </div>
+        <div id="trip__buttons">
+            <div id="trip__button--save">
+                <button class="trip__button" onclick="return Client.handleSubmit(event)">save trip</button>
+            </div>
+            <div id="trip__button--remove">
+                <button class="trip__button" onclick="return Client.handleSubmit(event)">remove trip</button>
+            </div>
+        </div>
+        <div id="trip__days">
+            <p>Paris, France is 220 days away.</p>
+        </div>
+        <div id="trip__weather">
+            <p>Typical weather for this is:</p>
+            <p>High - 46, Low - 35</p>
+            <p>Mostly cloudy throughout the day</p>
         </div>
     </div>
 </body>
