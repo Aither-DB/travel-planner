@@ -26,3 +26,19 @@ console.log(__dirname)
 app.listen(8081, function () {
     console.log('Example app listening on port 8081!')
 })
+
+app.get('/', function (req, res) {
+    res.sendFile(path.resolve('dist/index.html'))
+})
+
+// POST route
+
+app.post('/data', async (req, res) => {
+    try {
+        const location = req.body.location;
+        const departure = req.body.departure;
+        console.log(`${location} ${departure}`);
+    } catch (error) {
+        console.log(error);
+    }
+})
