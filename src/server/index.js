@@ -37,8 +37,33 @@ app.post('/data', async (req, res) => {
     try {
         const location = req.body.location;
         const departure = req.body.departure;
-        console.log(`${location} ${departure}`);
+        
+        if (!location) {
+            return res.status(400).send('Please enter a city name');
+        }
+
+        // Make a request to the GeoNames API to get information about the location
+        const response = await fetch(`http://api.geonames.org/searchJSON?q=${location}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`);
+
+        // Parse the response as JSON
+        const data = await response.json();
+
+        // Check if any results were returned
+        if (data.geonames && data.geonames.length > 0) {
+            // Extract the latitude, longitude, and country from the response
+            const lat = data.geonames[0].lat;
+            const lng = data.geonames[0].lng;
+            const country = data.geonames[0].countryName;
+
+            // Log the results to the console
+            console.log(`The latitude of ${location} is ${lat}`);
+            console.log(`The longitude of ${location} is ${lng}`);
+            console.log(`The country of ${location} is ${country}`);
+        } else {
+            console.log(`No results found for ${location}`);
+        }
     } catch (error) {
         console.log(error);
     }
-})
+});
+
