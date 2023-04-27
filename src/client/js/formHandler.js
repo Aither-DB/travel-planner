@@ -6,7 +6,7 @@ async function handleSubmit(event) {
     const formDeparture = document.getElementById('form__depart').value;
 
     try {
-        const response = await fetch('http://localhost:8081/data', {
+        const response = await fetch(`http://localhost:8081/data`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: { 'Content-Type': 'application/json' },

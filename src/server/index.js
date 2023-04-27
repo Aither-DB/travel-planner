@@ -23,8 +23,10 @@ app.use(express.static('dist'))
 console.log(__dirname)
 
 // Designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('Example app listening on port 8081!')
+const port = process.env.PORT
+
+app.listen(port, function () {
+    console.log(`Example app listening on port ${port}!`)
 })
 
 app.get('/', function (req, res) {
@@ -59,8 +61,18 @@ app.post('/data', async (req, res) => {
             console.log(`The latitude of ${location} is ${lat}`);
             console.log(`The longitude of ${location} is ${lng}`);
             console.log(`The country of ${location} is ${country}`);
+
+            // Send the latitude, longitude, and country back to the client
+            res.send({
+                lat,
+                lng,
+                country
+            });
         } else {
             console.log(`No results found for ${location}`);
+            
+            // Send a message back to the client indicating that no results were found
+            res.send(`No results found for ${location}`);
         }
     } catch (error) {
         console.log(error);
