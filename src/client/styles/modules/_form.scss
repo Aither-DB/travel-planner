@@ -1,4 +1,4 @@
-input[type=text], input[type=date] {
+input {
     display: block;
     width: 90%;
     padding: 10px;
@@ -10,7 +10,7 @@ input[type=text], input[type=date] {
     margin-bottom: 20px;
   }
   
-  input[type=text]:focus, input[type=date]:focus {
+  input:focus {
     outline: none;
     background-color: #fff;
   }
