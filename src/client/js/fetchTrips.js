@@ -1,3 +1,5 @@
+import { saveTrip, removeTrip } from './tripFunctions.js';
+
 async function fetchTrips() {
     const response = await fetch('/myTrips');
     const trips = await response.json();
@@ -35,6 +37,17 @@ async function fetchTrips() {
         </div>
       `;
   
+      const saveButton = tripCard.querySelector('.trip__button--save button');
+      const removeButton = tripCard.querySelector('.trip__button--remove button');
+  
+      saveButton.addEventListener('click', () => {
+        saveTrip(location, trip, departure, daysUntilTrip);
+      });
+  
+      removeButton.addEventListener('click', () => {
+        removeTrip(location, trip, departure);
+      });
+
       allTrips.appendChild(tripCard);
     });
   }

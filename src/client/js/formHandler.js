@@ -11,8 +11,6 @@ async function handleSubmit(event) {
     const currentDate = new Date();
     const daysUntilTrip = Math.ceil((travelDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24));
     const formattedTravelDate = travelDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const saveButton = document.querySelector('.trip__button--save button');
-    const removeButton = document.querySelector('.trip__button--remove button');
 
     try {
         const response = await fetch(`http://localhost:8081/data`, {
@@ -72,7 +70,6 @@ async function handleSubmit(event) {
 
         // Set the event listeners for the save and remove buttons
         setButtonEventListeners(data, formLocation, formDeparture, daysUntilTrip);
-
 
     } catch (error) {
         console.log(error);
