@@ -64,20 +64,21 @@ app.get('/myTrips', (req, res) => {
     });
 });
 
-app.delete('/trips', (req,res) => {
+app.delete('/trips', (req, res) => {
 
     const { location, country, departure } = req.body;
-
-    tripsDB.remove({ location, country, departure }, {}, (err, numRemoved) => {
-    if (err) {
+  
+    tripsDB.findOneAndRemove({ location, country, departure }, {}, (err, deletedTrip) => {
+      if (err) {
         res.status(500).send(err);
-    } else if (numRemoved === 0) {
+      } else if (!deletedTrip) {
         res.status(404).send({ message: 'Trip not found' });
-    } else {
+      } else {
         res.send({ message: 'Trip removed' });
-    }
-});
-});
+      }
+    });
+  });
+  
 
 // POST route from client when new trip submitted
 
@@ -123,37 +124,35 @@ app.post('/data', async (req, res) => {
             console.log(`The temperature in ${location} on ${departure} will be ${temperature} degrees Fahrenheit`);
             console.log(`The weather in ${location} on ${departure} will be ${description}`);
 
-            // // Make a request to the Pixabay API to get images for the location
-            // const responsePixabay = await fetch(`https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(location)}&image_type=photo&orientation=horizontal&category=places`);
+            // Make a request to the Pixabay API to get images for the location
+            const responsePixabay = await fetch(`https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(location)}&image_type=photo&orientation=horizontal&category=places`);
 
-            // // Parse the Pixabay response as JSON
-            // const dataPixabay = await responsePixabay.json();
+            // Parse the Pixabay response as JSON
+            const dataPixabay = await responsePixabay.json();
 
-            // // Check if any results were returned
-            // if (dataPixabay.hits && dataPixabay.hits.length > 0) {
-            //     // Extract the image URL and preview URL from the Pixabay response
-            //     const imageUrl = dataPixabay.hits[0].largeImageURL;
-            //     const previewUrl = dataPixabay.hits[0].previewURL;
+            // Extract the image URL and preview URL from the Pixabay response
+            const imageUrl = dataPixabay.hits[0].largeImageURL;
 
-            //     // Log the results to the console
-            //     console.log(`The image URL for ${location} is ${imageUrl}`);
-            //     console.log(`The preview URL for ${location} is ${previewUrl}`);
-            // } else {
-            //     console.log(`No images found for ${location}`);
+            // Check if any results were returned
+            if (dataPixabay.hits && dataPixabay.hits.length > 0) {
+
+                // Log the results to the console
+                console.log(`The image URL for ${location} is ${imageUrl}`);
+            } else {
+                console.log(`No images found for ${location}`);
                 
-            //     // Send a message back to the client indicating that no images were found
-            //     res.send(`No images found for ${location}`);
-            // }
+                // Send a message back to the client indicating that no images were found
+                res.send(`No images found for ${location}`);
+            }
 
-            // Send the latitude, longitude, and country back to the client
+            // Send the latitude, longitude, temperature, weather description, imageURL and country back to the client
             res.send({
                 lat,
                 lng,
                 country,
                 temperature,
                 description,
-                // imageURL,
-                // previewURL
+                imageUrl
             });
         } else {
             console.log(`No results found for ${location}`);

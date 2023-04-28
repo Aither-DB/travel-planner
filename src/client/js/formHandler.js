@@ -35,12 +35,13 @@ async function handleSubmit(event) {
         console.log(`You depart in ${daysUntilTrip} days`);
         console.log(`The temperature in ${formLocation} on ${formattedTravelDate} will be ${data.temperature} degrees Fahrenheit`);
         console.log(`The weather in ${formLocation} on ${formattedTravelDate} will be ${data.description}`);
+        console.log(`The image URL for your destination is ${data.imageUrl}`);
 
         // Generate tiles
 
         const tileHTML = `
         <div class="trip">
-            <div class="trip__image"></div>
+            <div class="trip__image" style="background-image: url('${data.imageUrl}'); background-size: cover; background-position: center;"></div>
             <div class="trip__header">
                 <h2>My trip to: ${formLocation}, ${data.country} </br> Departing: ${formattedTravelDate}</h2>
             </div>
