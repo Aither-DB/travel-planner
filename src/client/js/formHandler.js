@@ -1,3 +1,6 @@
+import { saveTrip } from "./tripFunctions";
+import { removeTrip } from "./tripFunctions";
+
 async function handleSubmit(event) {
     
     event.preventDefault()
@@ -8,7 +11,8 @@ async function handleSubmit(event) {
     const currentDate = new Date();
     const daysUntilTrip = Math.ceil((travelDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24));
     const formattedTravelDate = travelDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-   
+    const saveButton = document.querySelector('.trip__button--save button');
+    const removeButton = document.querySelector('.trip__button--remove button');
 
     try {
         const response = await fetch(`http://localhost:8081/data`, {
@@ -66,10 +70,27 @@ async function handleSubmit(event) {
         // Add the HTML code to the div
         allTrips.innerHTML += tileHTML;
 
+        // Set the event listeners for the save and remove buttons
+        setButtonEventListeners(data, formLocation, formDeparture, daysUntilTrip);
+
+
     } catch (error) {
         console.log(error);
         alert('Something went wrong. Please try again later.');
     }
 }
 
-export { handleSubmit };
+// Event Listeners on buttons
+
+function setButtonEventListeners(data, formLocation, formDeparture, daysUntilTrip) {
+    const saveButton = document.querySelector('.trip__button--save button');
+    const removeButton = document.querySelector('.trip__button--remove button');
+
+    saveButton.addEventListener('click', () => saveTrip(formLocation, data, formDeparture, daysUntilTrip));
+    removeButton.addEventListener('click', () => removeTrip(formLocation, data, formDeparture));
+}
+
+export {
+    handleSubmit,
+    setButtonEventListeners
+ };

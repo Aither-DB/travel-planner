@@ -18,6 +18,11 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+// Import NeDB to store data
+const Datastore = require('nedb');
+const tripsDB = new Datastore({ filename: 'trips.db', autoload: true });
+
+
 // Initialize main project folder
 app.use(express.static('dist'))
 console.log(__dirname)
@@ -33,7 +38,48 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('dist/index.html'))
 })
 
-// POST route
+// POST and DELETE request handling for saving and removing trips
+
+app.post('/trips', (req, res) => {
+
+    const trip = req.body;
+
+    tripsDB.insert(trip, (err, newTrip) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(newTrip);
+        }
+    });
+});
+
+app.get('/myTrips', (req, res) => {
+    tripsDB.find({}, (err, trips) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(trips);
+            console.log(`You just setup an endpont for retreiving all the trips from the database.`)
+        }
+    });
+});
+
+app.delete('/trips', (req,res) => {
+
+    const { location, country, departure } = req.body;
+
+    tripsDB.remove({ location, country, departure }, {}, (err, numRemoved) => {
+    if (err) {
+        res.status(500).send(err);
+    } else if (numRemoved === 0) {
+        res.status(404).send({ message: 'Trip not found' });
+    } else {
+        res.send({ message: 'Trip removed' });
+    }
+});
+});
+
+// POST route from client when new trip submitted
 
 app.post('/data', async (req, res) => {
     try {
