@@ -44,10 +44,10 @@ async function handleSubmit(event) {
             </div>
             <div class="trip__buttons">
                 <div class="trip__button--save">
-                    <button class="trip__button" onclick="">save trip</button>
+                <button class="trip__button save-button" data-id="">save trip</button>
                 </div>
                 <div class="trip__button--remove">
-                    <button class="trip__button" onclick="">remove trip</button>
+                <button class="trip__button remove-button" data-id="">remove trip</button>
                 </div>
             </div>
             <div class="trip__days">

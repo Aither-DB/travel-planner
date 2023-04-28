@@ -18,6 +18,11 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+// Setup NeDB database
+const Datastore = require('nedb');
+const database = new Datastore('database.db');
+database.loadDatabase();
+
 // Initialize main project folder
 app.use(express.static('dist'))
 console.log(__dirname)
@@ -33,16 +38,59 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('dist/index.html'))
 })
 
+// Save trip data to database
+app.post('/saveTrip', (req, res) => {
+    const data = req.body;
+    database.insert(data, (err, doc) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error saving trip to database');
+      } else {
+        res.send('Trip saved to database');
+      }
+    });
+  });
+  
+// Remove trip data from database
+app.post('/removeTrip', (req, res) => {
+    const id = req.body.id;
+    database.remove({ _id: id }, (err, numRemoved) => {
+        if (err) {
+        console.log(err);
+        res.status(500).send('Error removing trip from database');
+        } else {
+        res.send('Trip removed from database');
+        }
+    });
+    });
+
+// GET route
+
+app.get('/data', (req, res) => {
+    database.find({}, (err, data) => {
+        if (err) {
+            res.status(500).send();
+            return;
+        }
+        res.json(data);
+    });
+});
+
 // POST route
 
 app.post('/data', async (req, res) => {
     try {
         const location = req.body.location;
         const departure = req.body.departure;
+        const tripData = req.body;
         
         if (!location) {
             return res.status(400).send('Please enter a city name');
         }
+
+        // Use endpoint data to save trip to database
+        database.insert(tripData);
+        res.status(200).send();
 
         // Make a request to the GeoNames API to get information about the location
         const responseGeoNames = await fetch(`http://api.geonames.org/searchJSON?q=${location}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`);
@@ -119,4 +167,3 @@ app.post('/data', async (req, res) => {
         console.log(error);
     }
 });
-
