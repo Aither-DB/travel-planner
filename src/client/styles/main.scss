@@ -2,43 +2,15 @@
 
 // All "Base" specific SASS partials
 
-@import 'base/colors';
-@import 'base/extends';
-@import 'base/functions';
 @import 'base/icons';
-@import 'base/mixins';
-@import 'base/reset';
 @import 'base/fonts';
-@import 'base/utils';
-@import 'base/variables';
 
 // All "Layout" specific SASS partials
 
 @import 'layout/body';
-@import 'layout/footer';
 @import 'layout/header';
-@import 'layout/section';
 
 // All "Modules" specific SASS partials
 
-@import 'modules/accordion';
-@import 'modules/alert';
 @import 'modules/button';
-@import 'modules/carousel';
-@import 'modules/flyout';
 @import 'modules/form';
-@import 'modules/grid';
-@import 'modules/list';
-@import 'modules/modal';
-@import 'modules/toggler';
-
-// All "Overrides" specific SASS partials
-
-// All "Responsive" specific SASS partials
-
-@import 'responsive/mobile/responsive.mobile';
-@import 'responsive/tablet/responsive.tablet';
-
-// All "State" specific SASS partials
-
-// All "Themes" specific SASS partials

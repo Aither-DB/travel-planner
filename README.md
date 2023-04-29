@@ -1,6 +1,6 @@
 # Travel Planner
 
-<!-- ![Screenshot](src/client/images/Screenshot.jpg "Screenshot") -->
+![Screenshot](src/client/images/Screenshot.jpg "Screenshot")
 
 ## Project Description
 
@@ -14,5 +14,9 @@ The purpose of developing this project is to demonstrate knowledge of build tool
 
 1. Install the zip folder to your local computer.
 2. In your IDE of choice run 'npm install' to install all the dependencies from the 'package.json' file
-<!-- 3. Create a '.env' file and fill it with an 'API_KEY'. -->
-4. Using the magic of webpack you can this in either 'Producton mode' or 'Development mode'. 'Production mode' is on port 8081 and requires you to run 'npm run build-prod' followed by 'npm start'. 'Development mode' runs on port 8080 and requires you to run 'npm run build-dev'
+3. Create a '.env' file and fill it with the following:
+    - PORT=8081
+    - GEONAMES_USERNAME=(INSERT API KEY - REGISTER AT https://www.geonames.org/)
+    - WEATHERBIT_API_KEY=(INSERT API KEY - REGISTER AT https://www.weatherbit.io/)
+    - PIXABAY_API_KEY=(INSERT API KEY - REGISTER AT https://pixabay.com/)
+4. Using the magic of webpack you can open this in either 'Producton mode' or 'Development mode'. 'Production mode' is on port 8081 and requires you to run 'npm run build-prod' followed by 'npm start'. 'Development mode' runs on port 8080 and requires you to run 'npm run build-dev'
