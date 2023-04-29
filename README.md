@@ -6,7 +6,7 @@
 
 This is a project developed as part of the Udacity Front End Web Developer Nanodegree as the final project.
 
-This application allows you to input dates and get information about the weather in that location your are travelling to.
+This application allows you to input dates and get information about the weather in that location you are travelling to.
 
 The purpose of developing this project is to demonstrate knowledge of build tools, JavaScript, APIs, HTML and CSS. In this project I utilise Jest, Webpack, Workbox Service Workers, Node, Express and APIs to acheive this.
 
