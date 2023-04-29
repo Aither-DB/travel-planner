@@ -1,6 +1,3 @@
-import { saveTrip } from "./tripFunctions";
-import { removeTrip } from "./tripFunctions";
-
 async function handleSubmit(event) {
     
     event.preventDefault()
@@ -45,14 +42,6 @@ async function handleSubmit(event) {
             <div class="trip__header">
                 <h2>My trip to: ${formLocation}, ${data.country} </br> Departing: ${formattedTravelDate}</h2>
             </div>
-            <div class="trip__buttons">
-                <div class="trip__button--save">
-                    <button class="trip__button" onclick="">save trip</button>
-                </div>
-                <div class="trip__button--remove">
-                    <button class="trip__button" onclick="">remove trip</button>
-                </div>
-            </div>
             <div class="trip__days">
                 <p>Your trip to ${formLocation}, ${data.country} is ${daysUntilTrip} days away</p>
             </div>
@@ -69,26 +58,12 @@ async function handleSubmit(event) {
         // Add the HTML code to the div
         allTrips.innerHTML += tileHTML;
 
-        // Set the event listeners for the save and remove buttons
-        setButtonEventListeners(data, formLocation, formDeparture, daysUntilTrip);
-
     } catch (error) {
         console.log(error);
         alert('Something went wrong. Please try again later.');
     }
 }
 
-// Event Listeners on buttons
-
-function setButtonEventListeners(data, formLocation, formDeparture, daysUntilTrip) {
-    const saveButton = document.querySelector('.trip__button--save button');
-    const removeButton = document.querySelector('.trip__button--remove button');
-
-    saveButton.addEventListener('click', () => saveTrip(formLocation, data, formDeparture, daysUntilTrip));
-    removeButton.addEventListener('click', () => removeTrip(formLocation, data, formDeparture));
-}
-
 export {
     handleSubmit,
-    setButtonEventListeners
  };
