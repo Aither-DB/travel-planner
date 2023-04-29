@@ -7,7 +7,7 @@ async function fetchTrips() {
     const allTrips = document.getElementById('allTrips');
   
     trips.forEach(trip => {
-      const { location, country, departure, temperature, description } = trip;
+      const { location, country, departure, temperature, description, image } = trip;
   
       const travelDate = new Date(departure).toLocaleDateString();
       const daysUntilTrip = Math.ceil((new Date(departure) - new Date()) / (1000 * 60 * 60 * 24));
@@ -16,8 +16,8 @@ async function fetchTrips() {
       tripCard.classList.add('trip');
   
       tripCard.innerHTML = `
-        <div class="trip__image"></div>
-        <div class="trip__header">
+      <div class="trip__image" style="background-image: url('${image}'); background-size: cover; background-position: center;"></div>
+      <div class="trip__header">
           <h2>My trip to: ${location}, ${country} </br> Departing: ${travelDate}</h2>
         </div>
         <div class="trip__buttons">
@@ -41,7 +41,7 @@ async function fetchTrips() {
       const removeButton = tripCard.querySelector('.trip__button--remove button');
   
       saveButton.addEventListener('click', () => {
-        saveTrip(location, trip, departure, daysUntilTrip);
+        saveTrip(location, country, trip, departure, daysUntilTrip, image , temperature, description);
       });
   
       removeButton.addEventListener('click', () => {

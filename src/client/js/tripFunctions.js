@@ -10,10 +10,10 @@ async function saveTrip(formLocation, data, formDeparture, daysUntilTrip) {
         body: JSON.stringify({
             location: formLocation,
             country: data.country,
-            departure: formDeparture,
-            daysUntilTrip,
+            departure: [ formDeparture, daysUntilTrip ],
             temperature: data.temperature,
             description: data.description,
+            image: data.imageUrl,
         }),
     });
 
@@ -25,7 +25,7 @@ async function saveTrip(formLocation, data, formDeparture, daysUntilTrip) {
 
 }
 
-// Remove function to send a DELETE request to the server
+// Remove function to a request to the server to delete that entry
 
 async function removeTrip(formLocation, data, formDeparture) {
     

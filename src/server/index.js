@@ -59,7 +59,6 @@ app.get('/myTrips', (req, res) => {
             res.status(500).send(err);
         } else {
             res.send(trips);
-            console.log(`You just setup an endpont for retreiving all the trips from the database.`)
         }
     });
 });
